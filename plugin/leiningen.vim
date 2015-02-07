@@ -19,7 +19,7 @@ function s:NameOfLastIdentifier(identifier)
 endfunction
 
 function s:RequireNamespaceWithRefresh(namespace)
-  VimuxRunCommand("(require '[" . a:namespace . "] :reload-all)")
+  call VimuxRunCommand("(require '[" . a:namespace . "] :reload-all)")
 endfunction
 
 function s:CurrentNamespace()
@@ -71,8 +71,8 @@ endfunction
 function s:RunWithLeiningenRepl()
   if !s:run_with_repl
     let s:run_with_repl = 1
-    VimuxRunCommand("clear && lein repl")
-    VimuxRunCommand("(require '[clojure.test :refer [run-all-tests run-tests test-vars]])")
+    call VimuxRunCommand("clear && lein repl")
+    call VimuxRunCommand("(require '[clojure.test :refer [run-all-tests run-tests test-vars]])")
   endif
 endfunction
 
