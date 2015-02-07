@@ -19,7 +19,7 @@ function s:NameOfLastIdentifier(identifier)
 endfunction
 
 function s:RequireNamespaceWithRefresh(namespace)
-  call VimuxRunCommand("(require '[" . a:namespace . "] :reload-all)")
+  return "(require '[" . a:namespace . "] :reload-all)"
 endfunction
 
 function s:CurrentNamespace()
@@ -45,8 +45,8 @@ function s:RunCurrentLeiningenTests()
   let namespace = s:CurrentNamespace()
 
   if s:run_with_repl
-    let _ = s:RequireNamespaceWithRefresh(namespace)
-    let command = "(run-tests '" . namespace . ")"
+    let require_refresh = s:RequireNamespaceWithRefresh(namespace)
+    let command = require_refresh . " (run-tests '" . namespace . ")"
   else
     let command = "clear && lein test :only " . namespace
   endif
@@ -59,8 +59,8 @@ function s:RunFocusedLeiningenTests()
   let test_path = namespace . "/" . s:CurrentTest()
 
   if s:run_with_repl
-    let _ = s:RequireNamespaceWithRefresh(namespace)
-    let command = "(" . test_path . ")"
+    let require_refresh = s:RequireNamespaceWithRefresh(namespace)
+    let command = require_refresh . " (" . test_path . ")"
   else
     let command = "clear && lein test :only " . test_path
   endif
