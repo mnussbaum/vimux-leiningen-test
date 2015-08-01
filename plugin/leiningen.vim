@@ -13,7 +13,7 @@ command RunCurrentLeiningenTests :call s:RunCurrentLeiningenTests()
 function s:NameOfLastIdentifier(identifier)
   let line_num = search(a:identifier, "bn")
   let line = getline(line_num)
-  let name = split(line, " ")[1]
+  let name = split(line, " ")[-1]
 
   return name
 endfunction
